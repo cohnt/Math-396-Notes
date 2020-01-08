@@ -1,0 +1,256 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+\usepackage{relsize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\exer}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Exer: }}\textbf{Exer: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\setmid}{\;\middle|\;}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\halfPlane}{\mathbb{H}}
+\let\H\relax
+\newcommand{\H}{\halfPlane}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\mapsdown}{\rotatebox[origin=c]{-90}{$\mapsto$}\mkern2mu}
+\newcommand{\mapsup}{\rotatebox[origin=c]{90}{$\mapsto$}\mkern2mu}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\eqVertical}{\rotatebox[origin=c]{90}{=}}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+\newcommand{\Tau}{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\tau}}}}}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+\newcommand{\iffdef}{\overset{\ptxt{def}}{\Leftrightarrow}}
+\newcommand{\eqdef}{\overset{\ptxt{def}}{=}}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Integral Manifolds}
+\date{1/11/19} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Throwback to 11/21/18...\n
+
+\par\noindent Recall $\int_{Y_{\alpha}}f\,dV$, where $Y_{\alpha}$ is a parameterized $k$-manifold.\n
+We also want to know what $\int_{M}f\,dV$, where $M$ is a $k$-manifold.\n
+
+\par\noindent For now, we will focus on the case where $M$ is compact and $f$ is continuous.\n
+
+\par\noindent Special case: Assume $\supp{}f\subset{}V$ with $\alpha:U\to{}V\subset{}M$ coordinate patch.\n
+Then define $\int_{M}f\,dV=\int_{V_{\alpha}}f\,dV=\int_{U}(f\of\alpha)V(D\alpha)$. This is guaranteed to exist ``in the ordinary sense''.\n
+
+\prop{This does not depend on our choice of coordinate patch.\n
+Proof: Suppose we also have $\tilde{\alpha}:\tilde{U}\to\tilde{V}\subset{}M$. We can replace $V$ and $\tilde{V}$ with $V\cap\tilde{V}$, so we may assume $V=\tilde{V}$. $\tilde{\alpha}=\alpha\of(\alpha\inv\of\tilde{\alpha})$, and $\alpha\inv\of\tilde{\alpha}$ is a transition map, so from a result we proved on 11/21/18, $\int_{V_{\alpha}}f\,dV=\int_{V_{\tilde{\alpha}}}f\,dV$.\proven}
+
+\up
+\par\noindent\textit{But}, what if we require multiple cooridnate patches to cover $\supp{}f$?\n
+
+\par\noindent Choose coordinate patches $\alpha_{j}:U_{j}\to{}V_{j}\subset{}M$ for $j\in\set{1,2,\ldots,N}$, with $M=V_{1}\cup\cdots\cup{}V_{N}$ (we can assume there are a finite number of $V_{i}$ because $M$ is compact). Write $V_{j}=M\cap{}E_{j}$ with $E_{j}^{\ptxt{open}}\subseteq\R^{n}$.\n
+
+\par\noindent We can write $1=\varphi_{1}+\cdots+\varphi_{N}$ on $E_{1}\cup\cdots\cup{}E_{N}$ with $\supp\varphi_{j}\subset{}E_{j}$ and $(\supp\varphi_{j})\cap{}M\subset{}V_{j}$.\n
+So $f=f\varphi_{1}+\cdots+f\varphi_{N}$. Thus, we define\n
+
+\defn{$\displaystyle\int_{M}f\,dV=\int_{M}f\varphi_{1}\,dV+\cdots+\int_{M}f\varphi_{N}\,dV$}
+
+\par\noindent Of course, we need to check that we get the same result using $1=\tilde{\varphi_{1}}+\cdots+\tilde{\varphi_{n}}$.
+
+\[
+\begin{array}{ccccc}
+\sum_{j}\int{}f\varphi_{j}\,dV & \overset{\ptxt{?}}{=} & \sum_{k}\int{}f\tilde{\varphi_{k}}\,dV\\
+\eqVertical & & \eqVertical\\
+\sum_{j}\int{}f\varphi_{j}\paren{\sum_{k}\tilde{\varphi_{k}}}\,dV & & \sum_{k}\int{}f\tilde{\varphi_{k}}\paren{\sum_{j}\varphi_{j}}\,dV\\
+\eqVertical & & \eqVertical\\
+\sum_{j}\sum_{k}\int{}f\varphi_{j}\tilde{\varphi_{k}}\,dV & = & \sum_{j}\sum_{k}\int{}f\varphi_{j}\tilde{\varphi_{k}}\,dV
+\end{array}
+\]
+
+\newpage
+
+\par\noindent\textbf{Integral Manifolds}\n
+
+\par\noindent Consider $\omega$, a $1$-form on $A^{\ptxt{open}}\subseteq\R^{n}$.\n
+Then $\omega:A\to\paren{\R^{n}}^{*}=\Hom(\R^{n},\R)$, and $\omega(\vec{p}):\R^{n}\to\R$ is a linear map.\n
+
+\par\noindent Usually, $\dim(\ker(\omega(\vec{p})))=n-1$, but sometimes it's $n$. Consider $\vec{p}+\ker(\omega(\vec{p}))$, an affine set.\n
+
+\exer{(HW 1 \#3) Prove for a $k$-manifold $M\subset{}A$ that the following are equivalent:
+\begin{enumerate}[label=(\alph*)]
+	\item $\Tau_{p}M\subset\ker(\omega(\vec{p}))$, $\forall\vec{p}\in{}M$
+	\item $\alpha^{*}\omega=0$, $\forall\alpha$ coordinate patch for $M$
+	\item $\int_{C}\omega=0$, $\forall{}C^{1\ptxt{-mfd}}\subset{}M$
+\end{enumerate}}
+
+\up\defn{If $M$ satisfies these conditions, we say that $M$ is an \underline{integral manifold} for $\omega$.}
+
+\end{document}

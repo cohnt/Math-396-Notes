@@ -1,0 +1,297 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+\usepackage{relsize}
+\usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\exer}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Exer: }}\textbf{Exer: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\setmid}{\;\middle|\;}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\halfPlane}{\mathbb{H}}
+\let\H\relax
+\newcommand{\H}{\halfPlane}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+\DeclareMathOperator{\elem}{elem}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\map}[4]{\!\!\!\begin{array}[t]{rcl}#1 & \!\!\!\!\to & \!\!\!\!#2\\ #3 & \!\!\!\!\mapsto & \!\!\!\!#4\end{array}}
+\newcommand{\bigsum}[2]{\smashoperator[lr]{\sum_{\scalebox{#1}{$#2$}}}}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\compProj}{comp}
+
+% Multilinear Algebra
+\newcommand{\Lsym}{\L}
+\let\L\relax
+\DeclareMathOperator{\L}{\mathscr{L}}
+\DeclareMathOperator{\A}{\mathcal{A}}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\Sym}{Sym}
+\newcommand{\ot}{\otimes}
+\newcommand{\ox}{\otimes}
+\DeclareMathOperator{\asc}{asc}
+\DeclareMathOperator{\asSet}{set}
+\DeclareMathOperator{\sort}{sort}
+\DeclareMathOperator{\ringA}{\mathring{A}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+\newcommand{\Tau}{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\tau}}}}}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+\newcommand{\iffdef}{\overset{\ptxt{def}}{\Leftrightarrow}}
+\newcommand{\eqdef}{\overset{\ptxt{def}}{=}}
+\newcommand{\eqVertical}{\rotatebox[origin=c]{90}{=}}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\mapsdown}{\rotatebox[origin=c]{-90}{$\mapsto$}\mkern2mu}
+\newcommand{\mapsup}{\rotatebox[origin=c]{90}{$\mapsto$}\mkern2mu}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+\newcommand{\uSym}{\u}
+\let\u\relax
+\newcommand{\u}[1]{\underline{#1}}
+\newcommand{\bSym}{\b}
+\let\b\relax
+\newcommand{\b}[1]{\textbf{#1}}
+\newcommand{\iSym}{\i}
+\let\i\relax
+\newcommand{\i}[1]{\textit{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Manifold Orientation}
+\date{2/6/19} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\defn{An \u{orientation} of manifold $M$ is a division of connected coordinate patches into Group A, Group B \st{} $\det{}D(\alpha_{2}\inv\of\alpha_{1})$ is positive for $\alpha_{1},\alpha_{2}$ in the same group and negative for $\alpha_{1},\alpha_{2}$ in different groups.}
+
+\par\noindent By convention, Group A patches are ``orientation-preserving'', and Group B patches are ``orientation-reversing''.\n
+
+\par\noindent But how do we specify orientation? It can be awkward. And we want a ``default'' orientation in certain situations.\n
+
+\prop{Given $M$ with an orientation, then $\exists\omega$ $k$-form on a neighborhood of $M$ \st{} $\alpha^{*}\omega$ is a positive multiple of $dx_{1}\wedge\cdots{}dx_{k}$ when $\alpha$ is an orientation-preserving coordinate patch, and negative when $\alpha$ is an orientation-reversing coordinate patch.\n
+Proof: HW5\n}
+
+\par\noindent Given $\omega$ $k$-form on a neighborhood of a compact oriented manifold $M$. To define $\int_{M}\omega$, use partition of unity to write $\omega=\omega_{1}+\cdots+\omega_{N}$ \st{} $\supp\omega_{j}\subseteq{}V_{j}$ for some orientation-preserving coordinate patch $\alpha_{j}:U_{j}\to{}V_{j}$.\n
+
+\par\noindent Claim: This does not depend on choices made.\n
+Proof: same as for $\int_{M}f\,dV$ on 1/11.\n
+
+\par\noindent Immediate result: $\displaystyle\int_{M}c\omega=c\int_{M}\omega$ and $\displaystyle\int_{M}\omega_{1}+\omega_{2}=\int_{M}\omega_{1}+\int_{M}\omega_{2}$.\n
+
+\par\noindent Reverse orientation: replace $\displaystyle\int_{M}\omega$ by $\displaystyle-\int_{M}\omega$.\n
+
+\defn{The inverse of a coordinate patch is called a \u{coordinate chart}.}
+
+\par\noindent Suppose we're just given $U\overset{\alpha}{\to}V\overset{\beta}{\to}\R^{k}$.\n
+
+\par\noindent Check: points at which $\beta$ fails to be a coordinate patch are points at which $\alpha^{*}(d\beta_{1}\wedge\cdots\wedge{}d\beta_{k})=0$. Such points contribute nothing to the integral.\n
+
+\newpage
+
+\ex{Manifold $M$ in the shape of a chef's hat (open at the bottom). Then\n
+$\displaystyle\int_{M}dx\wedge{}dy=\pi$\n
+$\displaystyle\int_{M}dy\wedge{}dz=0$\n
+$\displaystyle\int_{M}dx\wedge{}dz=0$.\n}
+
+\ex{Manifold $M$ is the unit sphere in $\R^{3}$. Then\n
+$\displaystyle\int_{M}dx\wedge{}dy=0$\n
+$\displaystyle\int_{M}dx\wedge{}dz=0$\n
+$\displaystyle\int_{M}dy\wedge{}dz=0$\n
+\n
+$\displaystyle\int_{M}x\,dx\wedge{}dy=0$\n
+$\displaystyle\int_{M}y\,dx\wedge{}dy=0$\n
+$\displaystyle\int_{M}z\,dx\wedge{}dy=z\smashoperator{\int_{\set{x^{2}+y^{2}<1}}}\sqrt{1-x^{2}-y^{2}}=4\pi\int_{0}^{1}\sqrt{1-r^{2}}r\,dr=\cdots=\frac{4\pi}{3}\ne{}0$.\n}
+
+\par\noindent Goal: $\displaystyle\int_{M}d\omega=\int_{\partial{}M}\omega$. To get this, we need an orientation on $M$ to imply an orientation on $\partial{}M$.\n
+
+\par\noindent For $M$ manifold-with-boundary, $U_{1},U_{2}\subseteq\H^{k}$, $\alpha_{i}:U_{i}\to{}M$ orientation-preserving coordinate patches, $V_{i}\eqdef\alpha_{i}[U_{i}]$, and $\varphi=\alpha_{2}\inv\of\alpha_{1}$ orientation-preserving transition map with $\varphi_{k}\ge{}0$. From 1/9, we know $\varphi_{k}=0$ when $x_{k}=0$.\n
+
+\par\noindent Consider patches for $\partial{}M$, $\displaystyle\tilde{\alpha}_{1}\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{k-1}\end{array}}=\alpha_{j}\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{k-1}\\ 0\end{array}}$, $\tilde{\varphi}=\tilde{\alpha_{2}}\inv\of\tilde{\alpha_{1}}$.\n
+
+\par\noindent When $x_{k}=0$,
+\[
+D\varphi=\paren{\begin{array}{c:c}
+ & \\
+D\tilde{\varphi} & \\
+ & \\
+\underbrace{\frac{\partial\varphi_{k}}{\partial{}x_{1}}\;\;\cdots\;\;\frac{\partial\varphi_{k}}{\partial{}x_{k-1}}}_{\ptxt{all }0} & \frac{\partial\varphi_{k}}{\partial{}x_{k}}\\
+\end{array}}
+\]
+
+\par\noindent $\displaystyle\frac{\partial\varphi_{k}}{\partial{}x_{k}}=\lim_{\substack{h\to{}0\\ (h>0)}}\frac{\overbrace{\varphi_{k}(\vec{p}+h\vec{e_{k}})}^{\ge{}0}-\cancelto{0}{\varphi_{k}(\vec{p})}}{h}$. This is non-negative fraction, so it's a non-negative limit, so
+\[
+\underbrace{\deg{}D\varphi}_{\ptxt{positive}}=\det{}D\tilde{\varphi}\cdot\frac{\partial\varphi_{k}}{\partial{}x_{k}}
+\]
+
+\par\noindent Because $\det{}D\varphi$ is positive, and $\frac{\partial\varphi_{k}}{\partial{}x_{k}}>0$, we must have $\det{}D\tilde{\varphi}$ also positive.\n
+So we get an orientation on $\partial{}M$ by declaring $\tilde{\alpha_{j}}$ to be orientation-preserving.
+
+\end{document}

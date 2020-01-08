@@ -1,0 +1,248 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+\usepackage{relsize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\exer}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Exer: }}\textbf{Exer: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\setmid}{\;\middle|\;}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\halfPlane}{\mathbb{H}}
+\let\H\relax
+\newcommand{\H}{\halfPlane}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\mapsdown}{\rotatebox[origin=c]{-90}{$\mapsto$}\mkern2mu}
+\newcommand{\mapsup}{\rotatebox[origin=c]{90}{$\mapsto$}\mkern2mu}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\eqVertical}{\rotatebox[origin=c]{90}{=}}
+\DeclareMathOperator{\sgn}{sgn}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\compProj}{comp}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+\newcommand{\Tau}{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\tau}}}}}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+\newcommand{\iffdef}{\overset{\ptxt{def}}{\Leftrightarrow}}
+\newcommand{\eqdef}{\overset{\ptxt{def}}{=}}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Multilinear Algebra}
+\date{1/18/19} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Recall from last time, when $f''(x)=\beta(f(x))$, we then have $E=\frac{(f'(x))^{2}}{2}-\int\beta(y)\,dy|_{y=f(x)}$ constant.\n
+We get the solution $\displaystyle{}x+C=\left.\pm\int\frac{dy}{\sqrt{2(E+\int\beta(y)\,dy)}}\right|_{y=f(x)}$.\n
+
+\par\noindent Special Case: Frictionless Pendulum\n
+$f''(x)=-\sin(f(x))$.\n
+Then $E=\frac{v^{2}}{2}-\cos{}y$, so\n
+$\displaystyle{}x+C=\pm\int\frac{dy}{\sqrt{2(E+\cos{}y)}}=\pm\frac{\sqrt{2}\operatorname{EllipticF}\brack{\frac{y}{2},\frac{2}{1+E}}}{\sqrt{1+E}}$\n
+
+\par\noindent Variant: $f''(x)=\beta(f(x))-\gamma\cdot{}f'(x)$. Let $E=\frac{v^{2}}{2}-\cos{}y$.\n
+
+\exer{$E'(x)\le{}0$}
+
+\newpage
+\section*{Multilinear Algebra}
+
+\par\noindent Consider an $n$-dimensional parallelopiped $P\subseteq\R^{n}$. It's the image of $[0,1]^{n}$ under $\vec{x}\mapsto{}M\vec{x}+\vec{b}$, where $M=(\vec{x_{1}},\ldots,\vec{x_{n}})$ linearly independent. Then the volume of $P$, $V(\vec{x_{1}},\ldots,\vec{x_{n}})\eqdef\abs{\det{M}}$.\n
+
+\par\noindent Contrast this with $T(\vec{x_{1}},\ldots,\vec{x_{n}})=\det{}M=\pm{}V(\vec{x_{1}},\ldots,\vec{x_{n}})$. This will be positive if and only if the basis belongs to the standard orientation on $\R^{n}$.\n
+
+\par\noindent See 296 HW \#168,221 and/or 297 HW \#136,139.\n
+
+\par\noindent Let $V$ be a vector space.\n
+
+\defn{A \underline{$k$-tensor} on $V$ is a map $\underbrace{V\times\cdots\times{}V}_{V^{k}}\overset{f}{\to}\R$ \st{} $f(\vec{x_{1}},\ldots,\vec{x_{n}})$ is linear with respect to each $\vec{x_{j}}$.\n
+(We could use fields other than $\R$, but the field of characteristic $2$ is problematic.)}
+
+\ex{$f\paren{\paren{\begin{array}{c}x_{1}\\ y_{1}\end{array}},\paren{\begin{array}{c}x_{2}\\ y_{2}\end{array}}}=x_{1}y_{2}+x_{2}y_{1}$ is a $2$-tensor on $\R^{2}$.}
+
+\ex{$f\paren{\paren{\begin{array}{c}x_{1}\\ y_{1}\end{array}},\paren{\begin{array}{c}x_{2}\\ y_{2}\end{array}}}=x_{1}y_{1}+x_{2}y_{2}$ is \textbf{not} a $2$-tensor on $\R^{2}$.\n}
+
+\defn{A $k$-tensor is \underline{symmetric} $\iffdef$ $f(\vec{x_{1}},\ldots,\vec{x_{j}},\ldots,\vec{x_{k}},\ldots,\vec{x_{n}})=f(\vec{x_{1}},\ldots,\vec{x_{k}},\ldots,\vec{x_{j}},\ldots,\vec{x_{n}})$.}
+
+\defn{A $k$-tensor is \underline{alternating} $\iffdef$ $f(\vec{x_{1}},\ldots,\vec{x_{j}},\ldots,\vec{x_{k}},\ldots,\vec{x_{n}})=-f(\vec{x_{1}},\ldots,\vec{x_{k}},\ldots,\vec{x_{j}},\ldots,\vec{x_{n}})$.}
+
+\exer{A $k$-tensor is alternating iff $f(\vec{x_{1}},\ldots,\vec{x_{n}})=0$ when there are $j\ne{}l$ \st{} $\vec{x_{j}}=\vec{x_{l}}$.}
+
+\par\noindent A $1$-tensor is just a linear map $f:V\to\R$.\n
+
+\defn{A \underline{$k$-form} on $A^{\ptxt{open}}\subseteq{}V$ is a continuous $\omega:A\to\set{\ptxt{alternating $k$-tensors on $V$}}$.}
+
+\par\noindent Note that the set of alternating $k$-tensors on $V$ is a finite dimensional vector space.
+
+\end{document}

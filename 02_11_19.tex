@@ -1,0 +1,295 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+\usepackage{relsize}
+\usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\exer}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Exer: }}\textbf{Exer: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\setmid}{\;\middle|\;}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\halfPlane}{\mathbb{H}}
+\let\H\relax
+\newcommand{\H}{\halfPlane}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+\DeclareMathOperator{\elem}{elem}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\cov}{cov}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\map}[4]{\!\!\!\begin{array}[t]{rcl}#1 & \!\!\!\!\to & \!\!\!\!#2\\ #3 & \!\!\!\!\mapsto & \!\!\!\!#4\end{array}}
+\newcommand{\bigsum}[2]{\smashoperator[lr]{\sum_{\scalebox{#1}{$#2$}}}}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\compProj}{comp}
+\DeclareMathOperator{\row}{row}
+
+% Multilinear Algebra
+\newcommand{\Lsym}{\L}
+\let\L\relax
+\DeclareMathOperator{\L}{\mathscr{L}}
+\DeclareMathOperator{\A}{\mathcal{A}}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\Sym}{Sym}
+\newcommand{\ot}{\otimes}
+\newcommand{\ox}{\otimes}
+\DeclareMathOperator{\asc}{asc}
+\DeclareMathOperator{\asSet}{set}
+\DeclareMathOperator{\sort}{sort}
+\DeclareMathOperator{\ringA}{\mathring{A}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+\newcommand{\Tau}{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\tau}}}}}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+\newcommand{\iffdef}{\overset{\ptxt{def}}{\Leftrightarrow}}
+\newcommand{\eqdef}{\overset{\ptxt{def}}{=}}
+\newcommand{\eqVertical}{\rotatebox[origin=c]{90}{=}}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\mapsdown}{\rotatebox[origin=c]{-90}{$\mapsto$}\mkern2mu}
+\newcommand{\mapsup}{\rotatebox[origin=c]{90}{$\mapsto$}\mkern2mu}
+\newcommand{\from}{\!\mathrel{\reflectbox{\ensuremath{\to}}}}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+\newcommand{\uSym}{\u}
+\let\u\relax
+\newcommand{\u}[1]{\underline{#1}}
+\newcommand{\bSym}{\b}
+\let\b\relax
+\newcommand{\b}[1]{\textbf{#1}}
+\newcommand{\iSym}{\i}
+\let\i\relax
+\newcommand{\i}[1]{\textit{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Stokes' Theorem}
+\date{2/11/19} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent If $\omega$ is a $C^{1}$ $(k-1)$-form on a neighborhood of a compact oriented manifold $M$, then $\int_{M}d\omega=\int_{\partial{}M}\omega$ with the induced orientation on $\partial{}M$.\n
+
+\par\noindent Proof: Focus on the special case where $\supp\omega\subset{}V\overset{\alpha}{\from}U$ for orientation-preserving coordinate patch $\alpha$, we get the general case with finite sums. For
+\[
+\widetilde{\alpha^{*}\omega}\eqdef\left\{\begin{array}{ll}\alpha^{*}\omega & \quad\ptxt{on }U\\ 0 & \quad\ptxt{on }\H\cut{}U\end{array}\right.
+\]
+\[
+\int_{M}d\omega=\int_{U}\alpha^{*}d\omega=\int_{U}d(\alpha^{*}\omega)=\int_{\H^{k}}d(\widetilde{\alpha^{*}\omega})
+\]
+
+\par\noindent Also note: $\displaystyle\int_{\partial{}M}\omega=\int_{U\cap\partial\H^{k}}\widetilde{\alpha^{*}\omega}$, so we can write\n
+\[
+\widetilde{\alpha^{*}\omega}=f_{1}\,dx_{2}\wedge\cdots\wedge{}dx_{k}+f_{2}\,dx_{1}\wedge{}dx_{3}\wedge\cdots\wedge{}dx_{k}+\cdots+f_{k}\,dx_{1}\wedge\cdots\wedge{}dx_{k-1}
+\]
+
+\par\noindent Thus,
+\[
+d(\widetilde{\alpha^{*}\omega})=(D_{1}f_{1}-D_{2}f_{2}+\cdots+(-1)^{k-1}D_{k}f_{k})dx_{1}\wedge\cdots\wedge{}dx_{k}
+\]
+
+\par\noindent So $\int_{\H^{k}}d(\widetilde{\alpha^{*}\omega})=\int_{\H^{k}}D_{1}f_{1}-D_{2}f_{2}+\cdots+(-1)^{k-1}D_{k}f_{k}$.\n
+Replacing $\H^{k}$ with the box defined by $a_{1}\le{}x_{1}\le{}b_{1},\ldots,a_{k}\le{}x_{k}\le{}b_{k}$ (where $a_{k}=0$), such that every corner of the box is outside of $U$, yields
+\begin{align*}
+	\int_{\H^{k}}d(\widetilde{\alpha^{*}\omega}) & =\int_{a_{1}}^{b_{1}}\cdots\int_{a_{k}}^{b_{k}}D_{1}f_{1}-D_{2}f_{2}+\cdots+(-1)^{k-1}D_{k}f_{k}\\
+	\ptxt{(Fubini)} & =\int_{a_{2}}^{b_{2}}\cdots\int_{a_{k}}^{b_{k}}\int_{a_{1}}^{b_{1}}D_{1}f_{1}-\int_{a_{1}}^{b_{1}}\cdots\int_{a_{k}}^{b_{k}}\int_{a_{2}}^{b_{2}}D_{2}f_{2}+\cdots+\int_{a_{1}}^{b_{1}}\cdots\int_{a_{k}}^{b_{k}}\int_{a_{k-1}}^{\smash{b_{k-1}}}D_{k-1}f_{k-1}+\int_{\H^{k}}D_{k}f_{k}\\
+	\ptxt{(FTC)} & =\int_{a_{2}}^{b_{2}}\cdots\int_{a_{k}}^{b_{k}}(f_{1}(b_{1})-f_{1}(a_{1}))-\int_{a_{1}}^{b_{1}}\cdots\int_{a_{k}}^{b_{k}}(f_{2}(b_{2})-f_{2}(a_{2}))+\cdots+\int_{a_{1}}^{b_{1}}\cdots\int_{a_{k}}^{b_{k}}(f_{k-1}(b_{k-1})-f_{k-1}(a_{k-1}))+\int_{\H^{k}}D_{k}f_{k}\\
+	& =0-0+\cdots+0+\int_{\H^{k}}D_{k}f_{k}\\
+	\ptxt{(FTC)} & =(-1)^{k-1}(-1)\int_{\R^{k-1}}f_{k}\,dx_{1}\wedge\cdots\wedge{}dx_{k-1}\\
+	& =\cancel{(-1)^{k}(-1)^{k}}\int_{\partial\H^{k}}f_{k}\,dx_{1}\wedge\cdots\wedge{}dx_{k-1}\qquad\qquad\ptxt{($(-1)^{k}$ comes from the induced orientation)}\\
+	& =\int_{\partial\H^{k}}\alpha^{*}\omega\;\;\square\\
+\end{align*}
+
+\par\noindent\b{Revisiting Examples from Wednesday:}
+\ex{Sphere $S^{2}$\n
+$\displaystyle\int_{S^{2}}dx\wedge{}dy=\int_{\partial{}S^{2}}x\,dy=0$\n
+$\displaystyle\int_{S^{2}}x\,dx\wedge{}dy=\int_{\partial{}S^{2}}\frac{x^{2}}{2}\,dy=0$\n
+$\displaystyle\int_{S^{2}}z\,dx\wedge{}dy=\int_{B^{2}(1)}d(z\,dx\wedge{}dy)=\int_{B^{2}(1)}dz\wedge{}dx\wedge{}dy=\frac{4\pi}{3}$}
+
+\ex{$\displaystyle{}M=\set{(x,y,z)\in\R^{3}\;:\;x^{2}+y^{2}=1,0\le{}z\le{}1}$, $\omega=\frac{-y\,dx+x\,dy}{x^{2}+y^{2}}=``d\theta"$ (so $d\omega=0$).\n
+Then $\displaystyle\int_{M}d\omega=\int_{\partial{}M}\omega=2\pi-2\pi=0$, which is as expected, since $\displaystyle\int_{M}0=0$.}
+
+\par\noindent\b{Long List of Orientation Special Cases}
+\begin{enumerate}[label=(\arabic*)]
+	\item $M^{n\ptxt{-mfd}}\subseteq\R^{n}$. Use standard orientation of $\R^{n}$ to get standard orientation of $M$.
+	\item $X$ oriented $(n-1)$-mfd in $\R^{n}$ (perhaps $X=\partial{}M$ for some $M$ $n$-mfd).\n
+	Related question: sorting out ``inside'' vs ``outside''.\n
+	Recall: $\Tau_{\vec{p}}X$ is the column space of $D\alpha(\vec{q})$ (for $\vec{q}=\alpha\inv(\vec{p})$). $\dim\Tau_{\vec{p}}X=n-1$.
+\end{enumerate}
+
+\defn{$N_{\vec{p}}X\eqdef(\Tau_{\vec{p}}X)^{\perp}$ is called the \u{normal space}, and has dimension $1$.}
+\begin{enumerate}[label=(\arabic*), start=2, topsep=0pt]
+	\item (continued) Pick $\vec{N}(\vec{p})\in{}N_{\vec{p}}X$ \st{} $\norm{\vec{N}(\vec{p})}=1$ and $\det(\vec{N}(\vec{p})|D\alpha(\vec{p}))>0$ ($\star$).\n
+	Convince yourself that this is independent of choice of orientation-preserving coordinate patch $\alpha$, and that $X\subset{}C^{r}\Rightarrow\vec{N}(\vec{p})\in{}C^{r-1}(X,\R^{n})$. (For the latter, see p315.)\n
+	Conversely, given a coice of unit normal vector field for $X$, use ($\star$) as a criterion for $\alpha$ to be orientation-preserving, and get an orientation for $X$.
+	\item[(2a)] $X=\partial{}M^{n\ptxt{-mfd}}$. Special case: $M=\H^{n}$. Then $\vec{N}(\vec{p})=-\vec{e_{n}}$ (exercise).\n
+	General case: $\vec{N}(\vec{p})$ points out of $M$, i.e., $\vec{p}+\vec{N}(\vec{p})\not\in{}M$ for $0<t<\epsilon$.
+\end{enumerate}
+
+\end{document}

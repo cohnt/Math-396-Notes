@@ -1,0 +1,274 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\exer}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Exer: }}\textbf{Exer: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\halfPlane}{\mathbb{H}}
+\let\H\relax
+\newcommand{\H}{\halfPlane}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\mapsdown}{\rotatebox[origin=c]{-90}{$\mapsto$}\mkern2mu}
+\newcommand{\mapsup}{\rotatebox[origin=c]{90}{$\mapsto$}\mkern2mu}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+\DeclareMathOperator{\length}{length}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+\newcommand{\iffdef}{\overset{\ptxt{def}}{\Leftrightarrow}}
+\newcommand{\eqdef}{\overset{\ptxt{def}}{=}}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Manifold Boundary is a Manifold-Without-Boundary}
+\date{1/9/19} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Recall that $\H^{k}\eqdef\set{(x_{1},\ldots,x_{k}):x_{k}\ge{}0}$ and $\H^{k}_{+}\eqdef\set{(x_{1},\ldots,x_{k}):x_{k}>0}=\Int\H^{k}$.\n
+
+\par\noindent Consider $U,W$ (relatively) open susbets of $\H^{k}$, and $\gamma:U\to{}W$ a diffeomorphism.\n
+Then $U\cap\H^{k}_{+}$ is open in $\R^{k}$, and $D\gamma(\vec{x})$ is invertible for $\vec{x}\in{}U\cap\H^{k}_{+}$.\n
+So by the inverse function theorem, $\gamma[U\cap\H^{k}_{+}]$ is open in $\H^{k}_{+}$. Hence, $\gamma[U\cap\H^{k}_{+}]\subset\H^{k}_{+}$.\n
+
+\par\noindent We can apply the same argument to $\gamma\inv$, and we get $\gamma[U\cap\H^{k}_{+}]=W\cap\H^{k}_{+}$. So because $\gamma$ is bijective, and $\gamma[U\cap\H^{k}_{+}]=W\cap\H^{k}_{+}$, we have
+\[
+\gamma\brack{\vphantom{\paren{\R^{k-1}}}U\cap\smash{\underbrace{\paren{\R^{k-1}\times\set{0}}}_{\Bd\H^{k}}}}=W\cap\paren{\R^{k-1}\cap\set{0}}
+\vphantom{\underbrace{A}_{B}}
+\]
+
+\par\noindent This is used in the proof that $\partial{}M$ (for manifold $M$) is a $(k-1)$-manifold-without-boundary.\n
+
+\par\noindent Consider two subsets $U_{1},U_{2}$ of $\H^{k}$, where $\alpha_{1}$ and $\alpha_{2}$ map them onto $M$. Then $\alpha_{1}\inv\of\alpha_{2}$ is a diffeomorphism that ``takes boundary to boundary''. We can use $\alpha_{1}|_{\Bd{}U_{1}}$ and $\alpha_{2}|_{\Bd{}U_{2}}$ as coordinate patches for $\partial{}M$.\n
+
+\par\noindent We previously stated the following theorem:\n
+\thm{Every connected $C^{r}$ $1$-manifold is $C^{r}$-diffeomorphic to an interval in $\R$ or to $S^{1}$.}
+\cor{Every connected $C^{r}$ $1$-manifold is $C^{r}$-diffeomorphic to exactly one of the following:
+\begin{itemize}
+	\item $(0,1)$
+	\item $(0,1]$
+	\item $[0,1]$
+	\item $S^{1}$
+\end{itemize}}
+
+\par\noindent Proof: Let $M$ be a connected $1$-manifold, and $x_{0}\in{}M\setminus\partial{}M$.\n
+
+\exer{For $x_{1}\in{}M\setminus\set{x_{0}}$, $\exists{}I\subseteq{}M$ such that $I$ is homeomorphic to a closed interval and $\partial{}I=\set{x_{0},x_{1}}$.\n
+Hint: use path-connectedness, mimic proof of 395 HW3 \#4.}
+
+\par\noindent Case 1: There's exactly one such $I_{x_{0},x_{1}}$ for each $x_{1}$. Then partition $M\setminus\set{x_{0}}$ into two subsets according to whether $I_{x_{0},x_{1}}$ lies to the ``left'' or ``right'' of $x_{0}$.\n
+
+\par\noindent Let $f:M\to\R$ be defined by
+\[
+f(x_{1})=\left\{\begin{array}{ll}0 & x_{1}=x_{0}\\ \length(I_{x_{0},x_{1}}) & x_{1}\ptxt{ is to the right of }x_{0}\\ -\length(I_{x_{0},x_{1}}) & x_{1}\ptxt{ is to the left of }x_{0}\end{array}\right.
+\]
+
+\par\noindent Check that $f$ is continuous.\n
+
+\par\noindent So $f[M]$ is connected, and connected subsets of $\R$ are intervals.\n
+
+\exer{$\set{y\in{}f[M]:\#(f\inv(y))=1}$ is open in $f[M]$, closed in $f[M]$, and nonempty.\n
+So this set is equal to $f[M]$, and thus $f$ is a bijection.}
+
+\par\noindent Consider a coordinate patch $\alpha:U\to{}V^{\ptxt{osso}M}$, and $[t_{1},t_{2}]\subset{}U$ (with $t_{1}\ne{}t_{2}$).\n
+\[
+\int_{[t_{1},t_{2}]}\norm{D\alpha}=\length(\alpha[[t_{1},t_{2}]])=f(\alpha(t_{2}))-f(\alpha(t_{1}))
+\]
+
+\par\noindent So by the fundamental theorem of calculus, $D(f\of\alpha)=\norm{D\alpha}\ge{}0$. In fact, because $t_{1}\ne{}t_{2}$, $D(f\of\alpha)=\norm{D\alpha}>0$.\n
+
+\par\noindent $D\alpha$ is $C^{r-1}$. $\norm{\;\cdot\;}$ is $C^{\infty}$ everywhere except $\vec{0}$. Because $D\alpha$ never reaches $\vec{0}$, we can treat $\norm{\;\cdot\;}$ as $C^{\infty}$. So $\norm{D\alpha}$ is $C^{r-1}$.\n
+
+\par\noindent $f\of\alpha$ is $C^{r}$, and $D(f\of\alpha)\ne{}0$, so by the inverse function theorem, $(f\of\alpha)\inv$ is $C^{r-1}$.\n
+
+\par\noindent $f\of\alpha$ is $C^{r}$, and $\alpha\inv$ is $C^{r}$, so $(f\of\alpha)\of\alpha\inv=f$ is $C^{r}$. And $\alpha\of(f\of\alpha)\inv=f$ is $C^{r}$. So case 1 works.\n
+
+\par\noindent Case 2: There are $I_{1},I_{2}\subseteq{}M$ homeomorphic to closed intervals where $\partial{}I_{1}=\partial{}I_{2}=\set{x_{0},x_{1}}$ and $I_{1}\ne{}I_{2}$.\n
+WOLOG assume $I_{1}\not\subseteq{}I_{2}$.\n
+
+\exer{$I_{1}\setminus{}I_{2}$ is open in $I_{1}\setminus\partial{}I_{1}$ (relatively open), closed in $I_{1}\setminus\partial{}I_{1}$, and nonempty.\n
+This implies $I_{1}\setminus{}I_{2}=I_{1}\setminus\partial{}I_{1}$, i.e., $I_{1}\cap{}I_{2}=\set{x_{0},x_{1}}$.}
+
+\exer{$I_{1}\cup{}I_{2}$ is open in $M$, closed in $M$, and nonempty.\n
+This implies $I_{1}\cup{}I_{2}=M$.}
+
+\par\noindent Using the same $f$ as above, $f[M]=[-\length(I_{2}),\length(I_{1})]$. So we have ``competing values'' for $f(x_{1})$. Let
+\[
+t_{1}\overset{\ptxt{``$g$''}}{\mapsto}\paren{\cos\frac{2\pi{}t}{l_{1}+l_{2}},\sin\frac{2\pi{}t}{l_{1}+l_{2}}}
+\]
+
+\exer{This composition $g\of{}f$ is a diffeomorphism.}
+
+\end{document}

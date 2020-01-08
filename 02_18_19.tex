@@ -1,0 +1,338 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+\usepackage{relsize}
+\usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\exer}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Exer: }}\textbf{Exer: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\setmid}{\;\middle|\;}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\halfPlane}{\mathbb{H}}
+\let\H\relax
+\newcommand{\H}{\halfPlane}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+\DeclareMathOperator{\elem}{elem}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\cov}{cov}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\map}[4]{\!\!\!\begin{array}[t]{rcl}#1 & \!\!\!\!\to & \!\!\!\!#2\\ #3 & \!\!\!\!\mapsto & \!\!\!\!#4\end{array}}
+\newcommand{\bigsum}[2]{\smashoperator[lr]{\sum_{\scalebox{#1}{$#2$}}}}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\compProj}{comp}
+\DeclareMathOperator{\row}{row}
+
+% Multilinear Algebra
+\newcommand{\Lsym}{\L}
+\let\L\relax
+\DeclareMathOperator{\L}{\mathscr{L}}
+\DeclareMathOperator{\A}{\mathcal{A}}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\Sym}{Sym}
+\newcommand{\ot}{\otimes}
+\newcommand{\ox}{\otimes}
+\DeclareMathOperator{\asc}{asc}
+\DeclareMathOperator{\asSet}{set}
+\DeclareMathOperator{\sort}{sort}
+\DeclareMathOperator{\ringA}{\mathring{A}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+\newcommand{\Tau}{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\tau}}}}}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+\newcommand{\pd}[2]{\frac{\partial{}#1}{\partial{}#2}}
+\newcommand{\del}{\nabla}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\curl}{curl}
+\let\div\relax
+\DeclareMathOperator{\div}{div}
+
+% Complex Analysis
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re}
+\let\Im\relax
+\DeclareMathOperator{\Im}{Im}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+\newcommand{\iffdef}{\overset{\ptxt{def}}{\Leftrightarrow}}
+\newcommand{\eqdef}{\overset{\ptxt{def}}{=}}
+\newcommand{\eqVertical}{\rotatebox[origin=c]{90}{=}}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\mapsdown}{\rotatebox[origin=c]{-90}{$\mapsto$}\mkern2mu}
+\newcommand{\mapsup}{\rotatebox[origin=c]{90}{$\mapsto$}\mkern2mu}
+\newcommand{\from}{\!\mathrel{\reflectbox{\ensuremath{\to}}}}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+\newcommand{\uSym}{\u}
+\let\u\relax
+\newcommand{\u}[1]{\underline{#1}}
+\newcommand{\bSym}{\b}
+\let\b\relax
+\newcommand{\b}[1]{\textbf{#1}}
+\newcommand{\iSym}{\i}
+\let\i\relax
+\newcommand{\i}[1]{\textit{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Complex Numbers}
+\date{2/18/19} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\begin{center}
+\begin{tabular}{l|l}
+	Exterior Calculus in $\R^{3}$ & Vector Calculus in $\R^{3}$\\ \hline
+	$\left.\begin{array}{r}0\ptxt{-form}\\ 3\ptxt{-form}\end{array}\right\}$ & Scalar Function\\
+	$\left.\begin{array}{r}1\ptxt{-form}\\ 2\ptxt{-form}\end{array}\right\}$ & Vector Field\\
+	$d$ & $\del$\\
+	$d(0\ptxt{-form})$ & $\grad{}f=\del{}f$\\
+	$d(1\ptxt{-form})$ & $\curl\vec{F}=\del\times\vec{F}$\\
+	$d(2\ptxt{-form})$ & $\div\vec{F}=\iprod{\del,\vec{F}}$
+\end{tabular}
+\end{center}
+
+\par\noindent $\iprod{\curl\vec{F},\vec{N}}$ is the rotation of $\vec{F}$ in the plane perpendicular to $\vec{N}$ based on $\int_{M}d\omega$.\n
+
+\par\noindent For $M$ oriented $2$-manifold in $\R^{3}$, $\omega$ $2$-form
+\[
+\int_{M}\omega=\int_{\vec{p}\in{}M}\omega(\vec{p})(\vec{v_{1}},\vec{v_{2}})\,ds=\int\vec{F}\cdot\vec{N}\,ds
+\]
+where $\vec{F}$ is the vector field corresponding to $\omega$ and $(\vec{v_{1}},\vec{v_{2}},\vec{N})$ form a positively-oriented orthonormal basis.\n
+
+\par\noindent We can thus interpret $\vec{F}$ as the velocity of a fluid with unit density, so $\int_{M}\omega$ is the flux of $\vec{F}$ across $M$. $\vec{F}\cdot\vec{N}>0$ implies a positive flow, $\vec{F}\cdot\vec{N}<0$ implies a negative flow.\n
+
+\par\noindent If the fluid has density $\rho$, then the fluid crosses $M$ at rate (flux of $\rho\vec{F}$).\n
+
+\ex{For compact $3$-manifold $U\subset\R^{3}$, the flow out of $U$ is equal to the flux of $\rho\vec{F}$ across $\partial{}U$, which according to Stokes', is $\int_{U}\div\vec{F}$.\n
+Additionally, we know the flow out of $U$ is $-\pd{}{t}\int_{U}\rho=-\int\pd{\rho}{t}$ by Leibniz. Since this is true for all $U$, we have $\pd{\rho}{t}=-\div(\rho\vec{F})$.}
+
+\par\noindent Thus, if $\div(\rho\vec{F})>0$, the fluid is expanding, and if $\div(\rho\vec{F})<0$, the fuild is contracting. If $\rho$ is constant in space and time, then the fluid is incompressible, $\div(\rho\vec{F})=0$.\n
+
+\par\noindent Now, we will talk about Euler's equations for non-viscous (i.e. no fluid friction), incompressible fluids.\n
+$\div\vec{F}=0$\n
+$\pd{\curl\vec{F}}{t}+\curl((\curl\vec{F})\times\vec{F})=\vec{0}$.\n
+
+\par\noindent We can upgrade to include viscosity, and we get Navier-Stokes'\n
+
+\par\noindent Special Case of Euler's equations: $\div\vec{F}=\vec{0}$, $\curl\vec{F}=\vec{0}$ (incompressible and irrotational).\n
+Even more special case: $\vec{F}=\paren{\begin{array}{c}\alpha(x,y)\\ \beta(x,y)\\ 0\end{array}}$. Get $\pd{\alpha}{x}+\pd{\beta}{y}=0$ and $\pd{\beta}{x}-\pd{\alpha}{y}=0$, i.e., $\pd{\alpha}{x}=-\pd{\beta}{y}$, $\pd{\alpha}{y}=\pd{\beta}{x}$.\n
+
+\section*{Complex Integrands}
+
+\defn{Consider $f:A\to{}C$, where $f=u+iv$ for $\R$-valued $u$ and $v$. We say $u\eqdef\Re{}f$ and $v\eqdef\Im{}f$.\n
+\inlineeq{
+	\int_{A}f\eqdef\int_{A}u+i\int_{A}v
+}}
+
+\par\noindent Use the extended integral when $\extint{}u_{+}$, $\extint{}u_{-}$, $\extint{}v_{+}$, and $\extint{}v_{-}$ are all finite.\n
+
+\par\noindent We also have $\displaystyle\int_{M}f\,dV=\int_{M}u\,dV+i\int_{M}v\,dV$.\n
+
+\exer{$\displaystyle\lambda\in\C\Rightarrow\int_{A}\lambda{}f=\lambda\int_{A}f$}
+
+\prop{$\displaystyle\abs{\int_{A}f}\le\int_{A}\abs{f}$.\n
+Proof: pick $\theta$ such that $\norm{\int{}f}=e^{i\theta}\int{}f$.\n
+Then $\abs{\int{}f}=\Re\int{}e^{i\theta}f=\int\Re(e^{i\theta}f)\le\int\abs{\Re(e^{i\theta}f)}\le\int\abs{e^{i\theta}f}=\int\abs{f}$.\proven}
+
+\section*{$\C$-valued $k$-forms}
+
+\par\noindent Recall that a $k$-form on $A\subseteq\R^{n}$ is $\displaystyle\omega=\sum_{\mathclap{I\in\set{1,\ldots,n}^{k}\asc}}b_{I}(\vec{x})\Psi_{I}$ for $b_{I}\in{}C(A,\R)$.\n
+
+\par\noindent A $\C$-valued $k$-form on $A$ is defined exactly the same, except we have each $b_{I}\in{}C(A,\C)$.\n
+
+\par\noindent An $\R$-valued $k$-form maps $\displaystyle{}A\to\A^{k}(\R^{n})=\set{f:\smash{\underbrace{\R^{n}\times\cdots\times\R^{n}}_{k}}\to\R:f\ptxt{ is $\R$-multilinear and alternating}}$.\n
+
+\par\noindent Likewise, a $\C$-valued $k$-form maps $\displaystyle{}A\to\A^{k}_{\C}(\R^{n})=\set{f:\smash{\underbrace{\R^{n}\times\cdots\times\R^{n}}_{k}}\to\C:f\ptxt{ is $\R$-multilinear and alternating}}$.\n
+
+\defn{If $k=n$, $\omega=b_{(1,\ldots,k)}\Psi_{(1,\ldots,k)}$, then $\displaystyle\int_{A}\omega\eqdef\int_{A}b_{(1,\ldots,k)}$}
+
+\par\noindent Rules for $\wedge$, $\alpha^{*}$, and $d$ all carry over.\n
+For $\alpha:A^{\ptxt{osso}\R^{k}}\to{}Y\subseteq\R^{n}$, $Y_{\alpha}$ parameterized $k$-manifold, $\omega$ $\C$-valued $k$-form, $\int_{Y_{\alpha}}\omega=\int_{A}\alpha^{*}\omega=\cdots$.\n
+We also still have $\int_{Y_{\alpha}}\lambda\omega=\lambda\int_{Y_{\alpha}}\omega$.\n
+
+\par\noindent Consider $k=1$, $\omega:A\to\C^{n}_{\ptxt{row}}$.
+
+\exer{We still have the ML estimate: $\abs{\int_{Y_{\alpha}}\omega}\le\operatorname{length}(Y_{\alpha})\cdot\underset{\vec{x}\in{}Y}{\sup}\norm{\omega(\vec{x})}$}
+
+\defn{Consider $f=u+iv:A^{\ptxt{osso}\R^{k}}\to\C\simeq\R^{2}$. Then $f\in{}C^{r}(A,\C)$ if and only if $u,v\in{}C^{r}(A,\R)$.\n
+Also, $D_{j}f=D_{j}u+iD_{j}v$, and $df\eqdef{}du+idv$.}
+
+\par\noindent Now, consider $n=2$, $z=x+iy$. So $\conj{z}=x-iy$, $dz=dx+idy$, and $d\conj{z}=dx-idy$. Thus, we can write
+\[
+dx=\frac{dz+d\conj{z}}{2}\quad\ptxt{and}\quad{}dy=\frac{dz-d\conj{z}}{2i}
+\]
+
+\par\noindent Thus, for $\alpha,\beta,f,g$ $\C$-valued functions, we can correspond $\alpha{}dx+\beta{}dy$ with $fdz+gd\conj{z}$.\n
+
+\par\noindent This leads to another question -- given $f=u+iv$, when is $fdz$ closed?\n
+Well, $fdz=(u+iv)(dx+idy)=(udx-vdy)+i(vdx+udy)$.\n
+So both $(udx-vdy)$ and $(vdx+udy)$ must be closed separately.
+
+\end{document}

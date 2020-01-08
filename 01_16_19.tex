@@ -1,0 +1,254 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+\usepackage{relsize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\exer}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Exer: }}\textbf{Exer: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\setmid}{\;\middle|\;}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\halfPlane}{\mathbb{H}}
+\let\H\relax
+\newcommand{\H}{\halfPlane}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\mapsdown}{\rotatebox[origin=c]{-90}{$\mapsto$}\mkern2mu}
+\newcommand{\mapsup}{\rotatebox[origin=c]{90}{$\mapsto$}\mkern2mu}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\eqVertical}{\rotatebox[origin=c]{90}{=}}
+\DeclareMathOperator{\sgn}{sgn}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\compProj}{comp}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+\newcommand{\Tau}{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\tau}}}}}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+\newcommand{\iffdef}{\overset{\ptxt{def}}{\Leftrightarrow}}
+\newcommand{\eqdef}{\overset{\ptxt{def}}{=}}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Integrating Factor Examples}
+\date{1/16/19} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Recall: For $\omega$ non-zero $1$-form on an open susbet of $\R^{n}$, if there exists some $g$ such that $B\omega=dg$ where $B$ is a continuous non-vanishing ``integrating factor'', then the level sets $g\inv(c)$ of $g$ are integral $(n-1)$-manifolds for $g$.\n
+
+\par\noindent Special case: $\omega=u(x,y)dx+v(x,y)dy$ (i.e. $n=2$).\n
+Then the integral curves for $\omega$ are graphs of solutions of $\frac{dy}{dx}=\frac{-u(x,y)}{v(x,y)}$, i.e., $f'(x)=\frac{-u(x,f(x))}{v(x,f(x))}$.\n
+
+\par\noindent\underline{Two Classes of Examples}\n
+
+\par\noindent 1) $f'(x)=\beta(f(x))$ ($\star\star$). Solutions satisfy $\int\frac{dy}{\beta(y)}=x+C$.\n
+We call points where $\beta(y)=0$ ``equilibrium points''.\n
+
+\par\noindent Consider a path from $y_{0}$ to $y_{1}$ taken from time $x_{0}$ to $x_{1}$. Then $x_{1}-x_{0}=\int_{M}dx$.\n
+$\omega=-\beta(y)dx+dy$ or $\omega=-dx+\frac{dy}{\beta(y)}$.\n
+So $\displaystyle x_{1}-x_{0}=\int_{M}dx=\int_{M}dx+\underbrace{\int_{M}\paren{-dx+\frac{dy}{\beta(y)}}}_{0}=\int_{M}\frac{dy}{\beta(y)}=\int_{y_{0}}^{y_{1}}\frac{dy}{\beta(y)}$\n
+
+\par\noindent Followup: This last integral diverges (in the extended sense) \underline{if} $\beta$ is Lipschitz and $\beta$ vanishes somewhere in the interval $[y_{0},y_{1})$. So the integral is finite if and only if it's the ``non-deterministic'' case. Compare this with 395 HW 8 \#3 --- $\beta(y)=\sqrt[3]{y}$.\n
+
+\par\noindent 2) $f''(x)=\beta(f(x))$ ($\star\star\star$). This is a particle subject to a force field.\n
+Let $h(x)=f'(x)$. Get\up
+\[
+\left\{\begin{array}{l}f'(x)=h(x)\\ h'(x)=\beta(f(x))\end{array}\right.\quad\ptxt{i.e.}\quad\paren{\begin{array}{c}f\\ h\end{array}}'(x)=\paren{\begin{array}{c}h(x)\\ \beta(f(x))\end{array}}=\Psi\paren{\begin{array}{c}f(x)\\ h(x)\end{array}}\quad\ptxt{where}\quad\Psi\paren{\begin{array}{c}p\\ q\end{array}}=\paren{\begin{array}{c}q\\ \beta(p)\end{array}}
+\]
+
+\par\noindent Let $\displaystyle\alpha:x\mapsto\paren{\begin{array}{c}x\\ f(x)\\ h(x)\end{array}}$ graph parameterization. For $\paren{\begin{array}{c}x\\ y\\ v\end{array}}$ coords in $\R^{3}$,\n
+$y=f(x)$ and $v=h(x)=f'(x)$.\n
+
+\par\noindent Thus, $Y_{\alpha}$ integral $\omega_{1}=dy-v\,dx$ and $\omega_{2}=dv-\beta(y)\,dx$.\n
+From HW 2: $\omega_{1}=x_{1}\,dx_{2}+dx_{3}$ has no integral $2$-manifolds.\n
+
+\exer{$M$ integral for $\omega_{1}$ and for $\omega_{2}$ $\Rightarrow$ $M$ integral for $f_{1}\omega_{1}+f_{2}\omega_{2}$.}
+
+\par\noindent Apply to the specific situation $\omega_{3}\eqdef-\beta(y)\omega_{1}+v\omega_{2}=\cdots=v\,dv-\beta(y)\,dy=d\paren{\frac{v^{2}}{2}-\int\beta(y)\,dy}$.\n
+So we can write $\underbrace{\vphantom{\int}\frac{v^{2}}{2}}_{\ptxt{kinetic}}-\underbrace{\int\beta(y)\,dy}_{\ptxt{potential}}=\underbrace{\vphantom{\int}E}_{\ptxt{energy}}$, i.e., $\beta=\frac{F}{m}$.\n
+
+\par\noindent $f'(x)=V=\sqrt{2(E+\int\beta(y)\,dy)}$ ``type 1 autonomous''\n
+
+\par\noindent Use the method for type 1 autonomous equations, get $\displaystyle{}x+C=\pm\int\frac{dy}{\sqrt{2(E+\int\beta(y)\,dy)}}$.\n
+We still have $y=f(x)$ -- try to solve for $f$.\n
+
+\ex{$\beta(y)=-y$, $E=\frac{v^{2}+y^{2}}{2}$\n
+\n
+$\displaystyle{}x+C=\pm\int\frac{dy}{\sqrt{2E-y^{2}}}=\pm\arcsin\frac{y}{\sqrt{2E}}$.\n
+\n
+So $y=\sqrt{2E}\sin(x+C)$ ``Simple Harmonic Motion''}
+
+\ex{$\beta(y)=-\sin{}y$, $E=\frac{v^{2}}{2}-\cos{}y$ ``fritionless pendulum''\n
+\n
+$v^{2}=2(E+\cos{}y)$ $\to$ $v=\pm\sqrt{2(E+\cos(y))}$}
+
+\end{document}
